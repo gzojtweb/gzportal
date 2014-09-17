@@ -1,12 +1,13 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
+'use strict';
+var express      = require('express');
+var path         = require('path');
+var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var bodyParser   = require('body-parser');
+var mongoose     = require('mongoose');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var news   = require('./routes/news');
 
 var app = express();
 
@@ -22,8 +23,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+var mongoUrl = process.env.MONGOHQ_URL || 'mongodb://localhost/gzojt';
+mongoose.connect(mongoUrl);
+
 app.use('/', routes);
-app.use('/users', users);
+app.use('/news', news);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
