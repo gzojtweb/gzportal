@@ -6,9 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var mongoose     = require('mongoose');
 
-var routes = require('./routes/index');
-var news   = require('./routes/news');
-
 var app = express();
 
 // view engine setup
@@ -26,6 +23,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var mongoUrl = process.env.MONGOHQ_URL || 'mongodb://localhost/gzojt';
 mongoose.connect(mongoUrl);
+
+// include news model
+require('./models/News');
+
+// include routes
+var routes = require('./routes/index');
+var news   = require('./routes/news');
 
 app.use('/', routes);
 app.use('/news', news);
