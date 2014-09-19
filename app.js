@@ -30,9 +30,11 @@ require('./models/News');
 // include routes
 var routes = require('./routes/index');
 var news   = require('./routes/news');
+var admin  = require('./routes/admin');
 
 app.use('/', routes);
-app.use('/news', news);
+app.use('/api/news', news);
+app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

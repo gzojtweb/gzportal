@@ -10,6 +10,14 @@ var newsSchema = new mongoose.Schema({
 	content : {
 		type  : String,
 		match : /^[\w-.\s]+$/
+	},
+	createdAt : {
+		type    : Date,
+		default : Date.now()
+	},
+	updatedAt : {
+		type    : Date,
+		default : Date.now()
 	}
 });
 
