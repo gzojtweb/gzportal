@@ -20,16 +20,18 @@ router.get('/', function(req, res) {
 
 /* Creates news */
 router.post('/', function(req, res) {
-	News.create(req.body, function(err, news) {
-		res.setHeader('content-type', 'application/json');
-		res.statusCode = 200;
-		if(err) {
-			res.statusCode = 400;
-			return res.send(JSON.stringify(err));
+	// init new news object
+	var news = new News(req.body);
+
+	// save to db
+	news.save(function(error, news) {
+		if (error) {
+			return res.end(JSON.stringify(error));
 		}
 
-		res.send(JSON.stringify(news));
+		res.end(JSON.stringify(news));
 	});
+
 });
 
 module.exports = router;
