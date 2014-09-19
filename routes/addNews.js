@@ -4,11 +4,7 @@ var router  = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('admin', { title: 'Admin Page' });
+  res.render('addNews', { title: 'Add News' });
 });
 
 module.exports = router;
-<<<<<<< HEAD
-
-=======
->>>>>>> Added admin add news module.
