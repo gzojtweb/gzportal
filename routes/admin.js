@@ -8,7 +8,3 @@ router.get('/', function(req, res) {
 });
 
 module.exports = router;
-<<<<<<< HEAD
-
-=======
->>>>>>> Added admin add news module.
