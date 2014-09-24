@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  .navbar.navbar-default.navbar-fixed-top(role='navigation')
+    .container
+      .navbar-header
+        a.navbar-brand(href='#') Web Services
+      .navbar-collapse.collapse.navbar-responsive-collapse
+        ul.nav.navbar-nav
+          li.active
+            a(href='#') News
+          li
+            a(href='#') Strategy of the Week
+          li
+            a(href='#') Events
+          li
+            a(href='#') Polls
+          li
+            a(href='#') About
+        ul.nav.navbar-nav.navbar-right
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              | You are logged in as Admin
+              b.caret
+            ul.dropdown-menu
+              li
+                a(href='#') Settings
+              li
+                a(href='index.html') Logout
+  .container
+    .jumbotron
+      h2 Strategy of the Week
+      form(action='http://localhost:3000/api/strategy', method='POST')
+        table.table
+          tr
+            td
+              input(type='text', placeholder='Enter Title', name='title')
+            td(width='20%')
+              textarea(placeholder='Enter Content', name='content', cols='45', rows='5')
+            td(width='80%')
+              input.btn.btn-primary(type='submit', value='Create')
+      hr
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th Title
+            th Content
+            th(width='10%')
+              span.glyphicon.glyphicon-pencil
+            th(width='10%')
+              span.glyphicon.glyphicon-remove
+        tbody.strategy
+  script(src='../ajax/strategy.js')

@@ -26,14 +26,17 @@ mongoose.connect(mongoUrl);
 
 // include news model
 require('./models/News');
+require('./models/Strategy');
 
 // include routes
 var routes = require('./routes/index');
 var news   = require('./routes/news');
 var admin  = require('./routes/admin');
+var strategy = require('./routes/strategy');
 
 app.use('/', routes);
 app.use('/api/news', news);
+app.use('/api/strategy', strategy);
 app.use('/admin', admin);
 
 // catch 404 and forward to error handler

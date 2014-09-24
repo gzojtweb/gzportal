@@ -7,5 +7,8 @@ router.get('/', function(req, res) {
   res.render('admin', { title: 'Admin Page' });
 });
 
-module.exports = router;
+router.get('/strategy', function(req, res) {
+  res.render('strategy');
+});
 
+module.exports = router;
