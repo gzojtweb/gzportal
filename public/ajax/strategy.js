@@ -4,12 +4,33 @@ ajax.open('GET','http://localhost:3000/api/strategy');
 ajax.onload = function(data) {
     var data = JSON.parse(data.target.response);
 
-    /*data.forEach(function(d) {
-        var li = document.createElement('li');
+    data.forEach(function(d) {
+
+        var tr = document.createElement('tr');
+        var td1 = document.createElement('td');
+        var td2 = document.createElement('td');
+        var td3 = document.createElement('td');
+        var td4 = document.createElement('td');
+
+        td1.innerText = d.title;
+        tr.appendChild(td1);
+
+        td2.innerText = d.content;
+        tr.appendChild(td2);
+
+        td3.innerHTML = "<a href=\"#\">Edit</a>";
+        tr.appendChild(td3);
+
+        td4.innerHTML = "<a href=\"#\">Delete</a>";
+        tr.appendChild(td4);        
+
+        stratContainer.appendChild(tr);
+
+        /*var li = document.createElement('li');
         li.innerText = d.title + ' - ' + d.content;
 
-        stratContainer.appendChild(li);
-    });*/
+        stratContainer.appendChild(li);*/
+    });
 };
 
 ajax.send();
@@ -35,10 +56,10 @@ form.onsubmit = function (e) {
         td2.innerText = data.content;
         tr.appendChild(td2);
 
-        td3.innerText = "Edit";
+        td3.innerHTML = "<a href=\"#\">Edit</a>";
         tr.appendChild(td3);
 
-        td4.innerText = "Delete";
+        td4.innerHTML = "<a href=\"#\">Delete</a>";
         tr.appendChild(td4);        
 
         stratContainer.appendChild(tr);

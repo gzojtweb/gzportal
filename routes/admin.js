@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/strategy', function(req, res) {
-  res.render('strategy');
+  res.render('strategy', {title: 'Strategy of the Week'});
 });
 
 module.exports = router;
