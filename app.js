@@ -1,75 +1,56 @@
-'use strict';
-var express      = require('express');
-var path         = require('path');
-var logger       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var mongoose     = require('mongoose');
-var favicon      = require( 'serve-favicon' );
+/**
+ * Module dependencies.
+ */
 
-var app = express();
+// mongoose setup
+require( './models/Strategy' );
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+var express        = require( 'express' );
+var http           = require( 'http' );
+var path           = require( 'path' );
+var engine         = require( 'ejs-locals' );
+var favicon        = require( 'serve-favicon' );
+var cookieParser   = require( 'cookie-parser' );
+var bodyParser     = require( 'body-parser' );
+var methodOverride = require( 'method-override' );
+var logger         = require( 'morgan' );
+var errorHandler   = require( 'errorhandler' );
+var static         = require( 'serve-static' );
 
-// uncomment after placing your favicon in /public
-app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+var app    = express();
+var strat  = require( './routes/strategy' );
+var api    = require( './routes/api' );
 
+// all environments
+app.set( 'port', process.env.PORT || 3002 );
+app.engine( 'ejs', engine );
+app.set( 'views', path.join( __dirname, 'views' ));
+app.set( 'view engine', 'ejs' );
+app.use( favicon( __dirname + '/public/favicon.ico' ));
+app.use( logger( 'dev' ));
+app.use( methodOverride());
+app.use( cookieParser());
+app.use( bodyParser.json());
+app.use( bodyParser.urlencoded({ extended: true }));
 
-var mongoUrl = process.env.MONGOHQ_URL || 'mongodb://localhost/gzojt';
-mongoose.connect(mongoUrl);
+// API Routes
+app.get( '/api/strategy', api.strategy );
 
-// include news model
-require('./models/News');
-require('./models/Strategy');
+// Admin Routes
+app.use( strat.current_user );
+app.get(  '/admin/strategy', strat.index );
+app.post( '/admin/strategy/add', strat.add );
+app.get(  '/admin/strategy/destroy/:id', strat.destroy );
+app.get(  '/admin/strategy/edit/:id', strat.edit );
+app.post( '/admin/strategy/update/:id', strat.update );
 
-// include routes
-var routes = require('./routes/index');
-var news   = require('./routes/news');
-var admin  = require('./routes/admin');
-var strategy = require('./routes/strategy');
+app.use( static( path.join( __dirname, 'public' )));
 
-app.use('/', routes);
-app.use('/api/news', news);
-app.use('/api/strategy', strategy);
-app.use('/admin', admin);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
+// development only
+if( 'development' == app.get( 'env' )){
+  app.use( errorHandler());
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+http.createServer( app ).listen( app.get( 'port' ), function (){
+  console.log( 'Express server listening on port ' + app.get( 'port' ));
 });
-
-
-module.exports = app;

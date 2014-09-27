@@ -1,0 +1,63 @@
+<% layout( 'layout' ) -%>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 id="page-title"><%= title %></h1>
+	<form action="/admin/strategy/add" method="POST" accept-charset="utf-8">
+	  <table class="table">
+	    <tr>
+		  <td>
+		    <div class="item-new-text">
+			  <input class="input" type="text" placeholder="Enter Title" name="title">
+		    </div>
+		  </td>
+		  <td width="20%">
+		    <div class="item-new-textarea">
+			  <textarea class="input" placeholder="Enter Content" name="content" cols="45" rows=""5></textarea>
+		    </div>
+		  </td>
+		  <td width="80%">
+			<input class="item-new-button btn btn-primary" type="submit" value="Add"></input>
+		  </td>
+		</tr>
+	  </table>
+	</form>
+	
+	<hr>
+	
+	<table class="table table-striped table-hover">
+	  <thead>
+	    <tr>
+		  <th>Title</th>
+		  <th>Content</th>
+		  <th width="10%"><span class="glyphicon glyphicon-remove"></span></th>
+		</tr>
+	  </thead>
+	  <tbody>
+	    <% strategy.forEach (function (strategy){ %>
+		  <tr>
+			<% if( strategy._id == current ){ %>
+			<form class="update-form" action="/admin/strategy/update/<%= strategy._id %>" method="post" accept-charset="utf-8">
+			  <td>
+			    <input class="update-input" type="text" name="title" value="<%= strategy.title %>" />
+			  </td>
+		      <td>
+				<textarea class="update-input" name="content" cols="45" row="5"><%= strategy.content %></textarea>
+			  </td>
+			  <td><input type="submit" class="btn btn-primary" value="SAVE"></input></td>
+			</form>
+			<% }else{ %>
+			<td>
+			  <a class="update-link" href="/admin/strategy/edit/<%= strategy._id %>" title="Update this strategy"><%= strategy.title %></a>
+			</td>
+			<td>
+			  <a class="update-link" href="/admin/strategy/edit/<%= strategy._id %>" title="Update this strategy"><%= strategy.content %></a>
+			</td>
+			<td><a href="/admin/strategy/destroy/<%= strategy._id %>"><img title="Delete this strategy" src="/images/delete.png" width="16px" height="18px"></img></a></td>
+			<% } %>
+		  </tr>
+		<% }); %>
+	  </tbody>
+	</table>
+  </div>
+</div>

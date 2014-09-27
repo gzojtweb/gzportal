@@ -1,37 +1,101 @@
-'use strict';
-var express = require('express');
-var router  = express.Router();
+var utils    = require( '../utils' );
+var mongoose = require( 'mongoose' );
+var Strategy     = mongoose.model( 'Strategy' );
 
-var mongoose = require('mongoose');
-var Strategy = mongoose.model('Strategy');
+exports.index = function ( req, res, next ){
+  var strat_id = req.cookies ?
+    req.cookies.strat_id : undefined;
 
-/* GET users listing. */
-router.get('/', function(req, res) {
-	Strategy.find({}, function(err, strategy) {
-		res.setHeader('content-type', 'application/json');
-		res.statusCode = 200;
-		if(err) {
-			res.statusCode = 400;
-			return res.send(JSON.stringify(err));
-		}
-		res.send(JSON.stringify(strategy));
-	});
-});
+  Strategy.
+    find({ strat_id : strat_id }).
+    sort( '-updated_at' ).
+    exec( function ( err, strategy ){
+      if( err ) return next( err );
 
-/* Creates strategy */
-router.post('/', function(req, res) {
-	// init new news object
-	var strategy = new Strategy(req.body);
+      res.render( 'index-strategy', {
+          title    : 'Strategy of the Week',
+		  page_id  : 1,
+          strategy : strategy
+      });
+    });
+};
 
-	// save to db
-	strategy.save(function(error, strategy) {
-		if (error) {
-			return res.end(JSON.stringify(error));
-		}
+exports.add = function ( req, res, next ){
+  new Strategy({
+      strat_id   : req.cookies.strat_id,
+      title      : req.body.title,
+      content    : req.body.content
+  }).save( function ( err, strategy, count ){
+    if( err ) return next( err );
 
-		res.end(JSON.stringify(strategy));
-	});
+    res.redirect( '/admin/strategy' );
+  });
+};
 
-});
+exports.destroy = function ( req, res, next ){
+  Strategy.findById( req.params.id, function ( err, strategy ){
+    var strat_id = req.cookies ?
+      req.cookies.strat_id : undefined;
 
-module.exports = router;
+    if( strategy.strat_id !== req.cookies.strat_id ){
+      return utils.forbidden( res );
+    }
+
+    strategy.remove( function ( err, strategy ){
+      if( err ) return next( err );
+
+      res.redirect( '/admin/strategy' );
+    });
+  });
+};
+
+exports.edit = function( req, res, next ){
+  var strat_id = req.cookies ?
+      req.cookies.strat_id : undefined;
+
+  Strategy.
+    find({ strat_id : strat_id }).
+    sort( '-updated_at' ).
+    exec( function ( err, strategy ){
+      if( err ) return next( err );
+
+      res.render( 'edit-strategy', {
+        title    : 'Strategy of the Week',
+		page_id  : 1,
+        strategy : strategy,
+        current  : req.params.id
+      });
+    });
+};
+
+exports.update = function( req, res, next ){
+  Strategy.findById( req.params.id, function ( err, strategy ){
+    var strat_id = req.cookies ?
+      req.cookies.strat_id : undefined;
+
+    if( strategy.strat_id !== strat_id ){
+      return utils.forbidden( res );
+    }
+
+    strategy.title      = req.body.title;
+    strategy.content    = req.body.content;
+    strategy.updated_at = Date.now();
+    strategy.save( function ( err, strategy, count ){
+      if( err ) return next( err );
+
+      res.redirect( '/admin/strategy' );
+    });
+  });
+};
+
+// ** express turns the cookie key to lowercase **
+exports.current_user = function ( req, res, next ){
+  var strat_id = req.cookies ?
+      req.cookies.strat_id : undefined;
+
+  if( !strat_id ){
+    res.cookie( 'strat_id', utils.uid( 32 ));
+  }
+
+  next();
+};

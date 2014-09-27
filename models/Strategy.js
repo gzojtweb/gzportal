@@ -1,25 +1,19 @@
-'use strict';
+var mongoose = require( 'mongoose' );
+var Schema   = mongoose.Schema;
 
-var mongoose = require('mongoose');
-
-var strategySchema = new mongoose.Schema({
-	title   : {
-		type  : String
-	},
-	content : {
-		type  : String
-	},
-	date : {
-		type : String
-	},
-	createdAt : {
-		type    : Date,
+var Strategy = new Schema({
+    strat_id   : String,
+    title      : String,
+    content    : String,
+	created_at : {
+		type    : String,
 		default : Date.now()
 	},
-	updatedAt : {
-		type    : Date,
+    updated_at : {
+		type    : String,
 		default : Date.now()
-	}
+	},
 });
 
-module.exports = mongoose.model('Strategy', strategySchema);
+mongoose.model( 'Strategy', Strategy );
+mongoose.connect( 'mongodb://localhost/gzojt' );
