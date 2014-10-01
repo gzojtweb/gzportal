@@ -6,11 +6,11 @@ var Strategy = new Schema({
     title      : String,
     content    : String,
 	created_at : {
-		type    : String,
+		type    : Date,
 		default : Date.now()
 	},
     updated_at : {
-		type    : String,
+		type    : Date,
 		default : Date.now()
 	},
 });

@@ -20,14 +20,30 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
 		  <ul class="nav navbar-nav">
 		    <% if(page_id == 1) {%>
-		    <li><a class="active" href="#">News</a></li>
+		    <li class="active"><a href="#">News</a></li>
 			<% } else { %>
 		    <li><a href="#">News</a></li>
 			<% } %>
+		    <% if(page_id == 2) {%>
+		    <li class="active"><a href="#">Strategy of the Week</a></li>
+			<% } else { %>
 		    <li><a href="#">Strategy of the Week</a></li>
+			<% } %>
+		    <% if(page_id == 3) {%>
+		    <li class="active"><a href="#">Events</a></li>
+			<% } else { %>
 		    <li><a href="#">Events</a></li>
+			<% } %>
+		    <% if(page_id == 4) {%>
+		    <li class="active"><a href="#">Polls</a></li>
+			<% } else { %>
 		    <li><a href="#">Polls</a></li>
+			<% } %>
+		    <% if(page_id == 5) {%>
+		    <li class="active"><a href="#">About</a></li>
+			<% } else { %>
 		    <li><a href="#">About</a></li>
+			<% } %>
 		  </ul>
 		  <ul class="nav navbar-nav navbar-right">
 		    <li class="dropdown">

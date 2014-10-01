@@ -22,14 +22,16 @@
 		</tr>
 	  </table>
 	</form>
-	
+
 	<hr>
-	
+
 	<table class="table table-striped table-hover">
 	  <thead>
 	    <tr>
 		  <th>Title</th>
 		  <th>Content</th>
+		  <th width="15%">Date Created</th>
+		  <th width="15%">Date Modified</th>
 		  <th width="10%"><span class="glyphicon glyphicon-remove"></span></th>
 		</tr>
 	  </thead>
@@ -38,6 +40,8 @@
 		  <tr>
 		    <td><a class="update-link" href="/admin/strategy/edit/<%= strategy._id %>" title="Update this strategy"><%= strategy.title %></a></td>
 		    <td><a class="update-link" href="/admin/strategy/edit/<%= strategy._id %>" title="Update this strategy"><%= strategy.content %></a></td>
+		    <td><%= strategy.created_at.toLocaleDateString() %></a></td>
+		    <td><%= strategy.updated_at.toLocaleDateString() %></a></td>
 			<td><a href="/admin/strategy/destroy/<%= strategy._id %>"><img title="Delete this strategy" src="/images/delete.png" width="16px" height="18px"></img></a></td>
 		  </tr>
 		<% }); %>

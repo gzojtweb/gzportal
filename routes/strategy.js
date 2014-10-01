@@ -14,7 +14,7 @@ exports.index = function ( req, res, next ){
 
       res.render( 'index-strategy', {
           title    : 'Strategy of the Week',
-		  page_id  : 1,
+          page_id  : 2,
           strategy : strategy
       });
     });
@@ -24,7 +24,9 @@ exports.add = function ( req, res, next ){
   new Strategy({
       strat_id   : req.cookies.strat_id,
       title      : req.body.title,
-      content    : req.body.content
+      content    : req.body.content,
+      created_at : Date.now(),
+      updated_at : Date.now()
   }).save( function ( err, strategy, count ){
     if( err ) return next( err );
 
@@ -61,7 +63,7 @@ exports.edit = function( req, res, next ){
 
       res.render( 'edit-strategy', {
         title    : 'Strategy of the Week',
-		page_id  : 1,
+        page_id  : 2,
         strategy : strategy,
         current  : req.params.id
       });
