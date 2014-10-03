@@ -3,9 +3,18 @@
 var mongoose = require('mongoose');
 
 var conferencesSchema = new mongoose.Schema({
-	title   : String,
-	date : String,
-	location : String
+	title   : {
+		type: String,
+		},
+	date : {
+		type: String,
+
+	},
+	location : {
+		type: String,
+
+	}
+
 });
 
 module.exports = mongoose.model('Conferences', conferencesSchema);

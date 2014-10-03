@@ -18,18 +18,21 @@ router.get('/', function(req, res) {
 	});
 });
 
-/* Creates news */
+/* Creates conferences */
 router.post('/', function(req, res) {
-	Conferences.create(req.body, function(err, conferences) {
-		res.setHeader('content-type', 'application/json');
-		res.statusCode = 200;
-		if(err) {
-			res.statusCode = 400;
-			return res.send(JSON.stringify(err));
+
+	// init new news object
+	var conferences = new Conferences(req.body);
+
+	// save to db
+	conferences.save(function(error, conferences) {
+		if (error) {
+			return res.end(JSON.stringify(error));
 		}
 
-		res.send(JSON.stringify(conferences));
+		res.end(JSON.stringify(conferences));
 	});
 });
+
 
 module.exports = router;

@@ -41,7 +41,12 @@ var addNews = require ('./routes/addNews');
 var siis   = require('./routes/siis');
 var addSiis = require('./routes/addSiis');
 var conferences  = require('./routes/conferences');
+<<<<<<< HEAD
 app.use('/', routes);
+=======
+var addConferences = require('./routes/addConferences');
+
+>>>>>>> added conferences for admin side
 app.use('/api', routes);
 app.use('/api/news', news);
 app.use('/api/siis', siis);
@@ -51,6 +56,7 @@ app.use('/admin', admin);
 app.use('/admin/news/add', addNews);
 app.use('/addSiis', addSiis);
 app.use('/api/conferences', conferences);
+app.use('/admin/addConferences', addConferences);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
