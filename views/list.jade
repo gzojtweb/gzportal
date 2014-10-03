@@ -1,0 +1,30 @@
+extends layout
+
+block content
+ h1= title
+ hr
+ #event_form
+      form#f1(name="f1", method="post", action="/api/siis")
+        table.table.table-bordered
+          tr
+            td.f1_label Event Title
+            td.f1_label Event Date
+            td.f1_label Event Location
+            td.f1_label Event Details
+            
+          
+          each d in data
+            tr
+              td
+                p= d.eventTitle
+              td
+                p= d.eventDate
+              td
+                p= d.eventLoc
+              td
+                p= d.eventDetails
+              
+
+            
+
+
