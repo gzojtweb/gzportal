@@ -1,6 +1,6 @@
 {
-  "name"         : "todo",
-  "version"      : "0.0.1",
+  "name"         : "gzportal",
+  "version"      : "0.0.0",
   "private"      : true,
   "dependencies" : {
     "body-parser"     : "1.8.2",
