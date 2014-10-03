@@ -17,7 +17,6 @@ router.get('/', function(req, res) {
 		res.send(JSON.stringify(news));
 	});
 });
-
 /* Creates news */
 router.post('/', function(req, res) {
 	// init new news object
