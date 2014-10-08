@@ -26,15 +26,22 @@ mongoose.connect(mongoUrl);
 
 // include news model
 require('./models/News');
+require('./models/Siis');
 
 // include routes
 var routes = require('./routes/index');
 var news   = require('./routes/news');
 var admin  = require('./routes/admin');
 
+var siis   = require('./routes/siis');
+var addSiis = require('./routes/addSiis');
+
 app.use('/', routes);
 app.use('/api/news', news);
+app.use('/api/siis', siis);
 app.use('/admin', admin);
+
+app.use('/addSiis', addSiis);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

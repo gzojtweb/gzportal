@@ -1,0 +1,24 @@
+extends layout
+
+block content
+ h1= title
+ hr
+ #event_form.form-group
+      form#f1(name="f1", method="post", action="/api/siis")
+        table
+          tr
+            td.f1_label Event Title:
+            td
+              input(type="text", name="eventTitle", value="")
+          tr
+            td.f1_label Event Location:
+            td
+              input(type="text", name="eventLoc", value="")
+          tr
+            td.f1_label Event Additional Details:
+            td
+              textarea(rows="4", cols="50", name="eventDetails")
+          tr
+            td
+              input(type="submit", name="submitEvent", value="Submit", style="font-size:18px; ")
+
