@@ -3,35 +3,35 @@ var express = require('express');
 var router  = express.Router();
 
 var mongoose = require('mongoose');
-var News     = mongoose.model('News');
-
+var ContentUpdates     = mongoose.model('ContentUpdates');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-	News.find({}, function(err, news) {
+router.get('/', function(req, res) {
+	ContentUpdates.find({}, function(err, content_updates) {
 		res.setHeader('content-type', 'application/json');
 		res.statusCode = 200;
 		if(err) {
 			res.statusCode = 400;
 			return res.send(JSON.stringify(err));
 		}
-		res.send(JSON.stringify(news));
+		res.send(JSON.stringify(content_updates));
 	});
 });
 
 /* Creates news */
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
 	// init new news object
-	var news = new News(req.body);
+	var contentupdates = new ContentUpdates(req.body);
 
 	// save to db
-	news.save(function(error, news) {
+	contentupdates.save(function(error, content_updates) {
 		if (error) {
 			return res.end(JSON.stringify(error));
 		}
 
-		res.end(JSON.stringify(news));
+		res.end(JSON.stringify(content_updates));
 	});
+
 });
 
 module.exports = router;

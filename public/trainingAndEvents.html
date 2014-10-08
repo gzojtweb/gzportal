@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+
+  <style type="text/css">
+
+
+    * {
+      margin : 0;
+      padding : 0;
+      border : none;
+      outline : none;
+    }
+
+    body {
+      font: normal 95%/150% Courier;
+    }
+
+    h1, p {
+      line-height : 1em;
+      margin-bottom: 1em;
+    }
+
+    #app {
+      margin : 30px;
+    }
+
+    hr {
+      height : 1px;
+      background-color : #aaa;
+    }
+
+    form {
+      padding: 20px;
+    }
+
+    input {
+      border : 1px solid #aaa;
+      padding: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Training and Events</h1>
+    <hr>
+    <form action="http://localhost:3000/api/training-and-events" method="POST">
+      <input type="text" placeholder="Enter Title" name="title">
+      <input type="text" placeholder="Enter Content" name="content">
+      <input type="text" placeholder="Enter Author" name="author">
+      <input type="submit" value="Create">
+    </form>
+    <ul class="trainingAndEvents">
+    </ul>
+  </div>
+  <script type="text/javascript">
+
+    var trainingAndEventsContainer = document.querySelector('.trainingAndEvents');
+    var ajax = new XMLHttpRequest();
+    ajax.open('GET','http://localhost:3000/api/training-and-events');
+    ajax.onload = function(data) {
+      var data = JSON.parse(data.target.response);
+
+      data.forEach(function(d) {
+	var li = document.createElement('li');
+	li.innerText = d.title + ' - ' + d.content + ' - ' + d.author;
+
+	trainingAndEventsContainer.appendChild(li);
+      });
+    };
+
+    ajax.send();
+
+    var form = document.querySelector('form');
+
+    form.onsubmit = function (e) {
+      e.preventDefault();
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://localhost:3000/api/training-and-events');
+      xhr.onload = function (e) {
+	var data = JSON.parse(e.target.response);
+	var li = document.createElement('li');
+	li.innerText = data.title + ' - ' + data.content + ' - ' + data.author + ' - ' + data.date ;
+
+	contentUpdatesContainer.appendChild(li);
+
+	form.title.value = '';
+	form.content.value = '';
+	form.author.value = '';
+
+	form.title.focus();
+      }
+      xhr.setRequestHeader('content-type','application/json');
+
+      xhr.send(JSON.stringify({
+	title : form.title.value,
+	content : form.content.value,
+	author : form.author.value
+      }));
+
+    };
+  </script>
+</body>
+</html>
