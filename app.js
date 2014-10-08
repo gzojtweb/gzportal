@@ -28,12 +28,14 @@ mongoose.connect(mongoUrl);
 require('./models/News');
 require('./models/Siis');
 require('./models/ContentUpdates');
+require('./models/TrainingAndEvents');
 
 // include routes
 var routes = require('./routes/index');
 var news   = require('./routes/news');
 var admin  = require('./routes/admin');
 var content_updates = require('./routes/content-updates');
+var training_and_events = require('./routes/training-and-events');
 
 var siis   = require('./routes/siis');
 var addSiis = require('./routes/addSiis');
@@ -42,8 +44,8 @@ app.use('/', routes);
 app.use('/api/news', news);
 app.use('/api/siis', siis);
 app.use('/admin', admin);
-app.use('/api/news', news);
-app.use('/api/content_updates',content_updates);
+app.use('/api/content-updates',content_updates);
+app.use('/api/training-and-events',training_and_events);
 
 app.use('/addSiis', addSiis);
 

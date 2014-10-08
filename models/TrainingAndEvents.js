@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 
-var contentUpdatesSchema = new mongoose.Schema({
+var trainingandeventsSchema = new mongoose.Schema({
 	title   : {
 		type  : String,
 		match : /^[\w-.\s]+$/
@@ -19,6 +19,7 @@ var contentUpdatesSchema = new mongoose.Schema({
 		type  : Date,
 		default: Date.now
 	}
+
 });
 
-module.exports = mongoose.model('ContentUpdates', contentUpdatesSchema);
+module.exports = mongoose.model('TrainingAndEvents', trainingandeventsSchema);

@@ -3,33 +3,33 @@ var express = require('express');
 var router  = express.Router();
 
 var mongoose = require('mongoose');
-var ContentUpdates     = mongoose.model('ContentUpdates');
+var trainingAndEvents= mongoose.model('TrainingAndEvents');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-	ContentUpdates.find({}, function(err, content_updates) {
+	trainingAndEvents.find({}, function(err, training_and_events) {
 		res.setHeader('content-type', 'application/json');
 		res.statusCode = 200;
 		if(err) {
 			res.statusCode = 400;
 			return res.send(JSON.stringify(err));
 		}
-		res.send(JSON.stringify(content_updates));
+		res.send(JSON.stringify(training_and_events));
 	});
 });
 
 /* Creates news */
 router.post('/', function(req, res) {
 	// init new news object
-	var contentupdates = new ContentUpdates(req.body);
+	var training_and_events = new trainingAndEvents(req.body);
 
 	// save to db
-	contentupdates.save(function(error, content_updates) {
+	training_and_events.save(function(error, trainingandevents) {
 		if (error) {
 			return res.end(JSON.stringify(error));
 		}
 
-		res.end(JSON.stringify(content_updates));
+		res.end(JSON.stringify(trainingandevents));
 	});
 
 });

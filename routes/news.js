@@ -5,8 +5,9 @@ var router  = express.Router();
 var mongoose = require('mongoose');
 var News     = mongoose.model('News');
 
+
 /* GET users listing. */
-router.get('/', function(req, res) {
+router.get('/', function(req, res, next) {
 	News.find({}, function(err, news) {
 		res.setHeader('content-type', 'application/json');
 		res.statusCode = 200;
@@ -19,7 +20,7 @@ router.get('/', function(req, res) {
 });
 
 /* Creates news */
-router.post('/', function(req, res) {
+router.post('/', function(req, res, next) {
 	// init new news object
 	var news = new News(req.body);
 
@@ -31,7 +32,6 @@ router.post('/', function(req, res) {
 
 		res.end(JSON.stringify(news));
 	});
-
 });
 
 module.exports = router;
