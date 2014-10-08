@@ -1,0 +1,21 @@
+extends layout
+
+block content
+   div
+     h1 News
+     table.table
+       form(method='POST', action='/api/news')
+         tr
+           td Title:
+           td 
+             input(type='text', name='title', size='98')
+         tr
+           td Content:
+           td
+             textarea(name='content',rows='20', cols='100')
+         tr
+           td
+             input(type='submit', class='btn btn-primary', value='SAVE')
+           td
+     ul.news
+   script(src='../../ajax/news.js')
