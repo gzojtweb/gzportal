@@ -7,8 +7,8 @@ var newsSchema = new mongoose.Schema({
 		type  : String,
 		match : /^[\w-.\s]+$/
 	},
-	Content :{
-		type  : Date,
+	content : {
+		type  : String
 	},
 	createdAt : {
 		type    : Date,
