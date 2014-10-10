@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  form(method="POST", action="/api/conferences")
+  p Title:
+   input(type="text", name="title")
+  p Date:
+   input(type="text", name="date")
+  p Location:
+   input(type="text", name="location")
+  p
+   input(type='submit',name='submit',value='Sussbmit')

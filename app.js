@@ -29,6 +29,7 @@ require('./models/News');
 require('./models/Siis');
 require('./models/ContentUpdates');
 require('./models/TrainingAndEvents');
+require('./models/Conferences');
 
 // include routes
 var routes = require('./routes/index');
@@ -39,22 +40,23 @@ var training_and_events = require('./routes/training-and-events');
 var addNews = require ('./routes/addNews');
 var siis   = require('./routes/siis');
 var addSiis = require('./routes/addSiis');
-
+var conferences  = require('./routes/conferences');
+<<<<<<< HEAD
 app.use('/', routes);
-app.use('/api/news', news);
+=======
+var addConferences = require('./routes/addConferences');
 
+>>>>>>> added conferences for admin side
+app.use('/api', routes);
+app.use('/api/news', news);
 app.use('/api/siis', siis);
-app.use('/admin', admin);
 app.use('/api/content-updates',content_updates);
 app.use('/api/training-and-events',training_and_events);
-
-app.use('/', routes);
+app.use('/admin', admin);
 app.use('/admin/news/add', addNews);
-
-app.use('/', routes);
-app.use('/admin', admin)
-
 app.use('/addSiis', addSiis);
+app.use('/api/conferences', conferences);
+app.use('/admin/addConferences', addConferences);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
