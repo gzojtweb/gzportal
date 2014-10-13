@@ -32,26 +32,23 @@ require('./models/TrainingAndEvents');
 require('./models/Conferences');
 
 // include routes
-var routes = require('./routes/index');
-var news   = require('./routes/news');
-var admin  = require('./routes/admin');
-var content_updates = require('./routes/content-updates');
-var training_and_events = require('./routes/training-and-events');
-var addNews = require ('./routes/addNews');
-var siis   = require('./routes/siis');
-var addSiis = require('./routes/addSiis');
-var conferences  = require('./routes/conferences');
-<<<<<<< HEAD
-app.use('/', routes);
-=======
-var addConferences = require('./routes/addConferences');
+var routes            = require('./routes/index');
+var news              = require('./routes/news');
+var admin             = require('./routes/admin');
+var contentUpdates    = require('./routes/content-updates');
+var trainingAndEvents = require('./routes/training-and-events');
+var addNews           = require ('./routes/addNews');
+var siis              = require('./routes/siis');
+var addSiis           = require('./routes/addSiis');
+var conferences       = require('./routes/conferences');
+var addConferences    = require('./routes/addConferences');
 
->>>>>>> added conferences for admin side
+app.use('/', routes);
 app.use('/api', routes);
 app.use('/api/news', news);
 app.use('/api/siis', siis);
-app.use('/api/content-updates',content_updates);
-app.use('/api/training-and-events',training_and_events);
+app.use('/api/content-updates',contentUpdates);
+app.use('/api/training-and-events',trainingAndEvents);
 app.use('/admin', admin);
 app.use('/admin/news/add', addNews);
 app.use('/addSiis', addSiis);

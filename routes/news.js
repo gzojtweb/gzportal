@@ -18,6 +18,7 @@ router.get('/', function(req, res, next) {
 		res.send(JSON.stringify(news));
 	});
 });
+
 /* Creates news */
 router.post('/', function(req, res, next) {
 	// init new news object
@@ -30,6 +31,42 @@ router.post('/', function(req, res, next) {
 		}
 
 		res.end(JSON.stringify(news));
+	});
+});
+
+/* Updates news */
+router.put('/:id', function(req, res, next) {
+
+	// save to db
+	News.findByIdAndUpdate(req.params.id, req.body, function(error, result) {
+		if (error) {
+			return res.end(JSON.stringify(error));
+		}
+
+		res.end(JSON.stringify(result));
+	});
+});
+
+/* Updates news */
+router.delete('/:id', function(req, res, next) {
+
+	// save to db
+	News.findByIdAndRemove(req.params.id, function(error, result) {
+		if (error) {
+			return res.end(JSON.stringify(error));
+		}
+
+		// if result is null, then show item not found error
+		if (!result) {
+			var noResult = {};
+			noResult.message = 'Item not found.';
+			noResult.status = 404;
+
+			res.statusCode = 404;
+			return res.end(JSON.stringify(noResult));
+		}
+
+		res.end(JSON.stringify(result));
 	});
 });
 

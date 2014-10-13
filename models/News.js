@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 var newsSchema = new mongoose.Schema({
-	Title   : {
+	title   : {
 		type  : String,
 		match : /^[\w-.\s]+$/
 	},
