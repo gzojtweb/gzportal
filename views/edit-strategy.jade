@@ -1,0 +1,60 @@
+extends layout
+
+block content
+    .container
+      .jumbotron
+        h1#page-title
+          | #{title}
+        form(action='/admin/strategy/add', method='POST', accept-charset='utf-8')
+          table.table
+            tr
+              td
+                .item-new-text
+                  input.input(type='text', placeholder='Enter Title', name='title')
+              td(width='20%')
+                .item-new-textarea
+                  textarea.input(5='5', placeholder='Enter Content', name='content', cols='45', rows='5')
+              td(width='80%')
+                input.item-new-button.btn.btn-primary(type='submit', value='Add')
+        hr
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th.text-center Title
+              th.text-center Content
+              th.text-center(width='13%') Date Created
+              th.text-center(width='13%') Date Updated
+              th.text-center(width='5%')
+                span.glyphicon.glyphicon-remove
+          tbody
+            - strategy.forEach(function (strategy) {
+              tr
+                - if(strategy.id == current) {
+                  form.update-form(action='/admin/strategy/update/#{strategy._id}', method='post' accept-charset='utf-8')
+                    td
+                      input.update-input(type='text' name='title' value='#{strategy.title}')
+                    td
+                      textarea.update-input(name='content' cols='45' row='5')
+                        | #{strategy.content}
+                    td.text-center
+                      | #{strategy.created_at.toLocaleDateString()}
+                    td.text-center
+                      | #{strategy.updated_at.toLocaleDateString()}
+                    td
+                      input.btn.btn-primary(type='submit' value='SAVE')
+                - } else {
+                  td
+                    a.update-link(href='/admin/strategy/edit/#{strategy._id}' title='Update this strategy')
+                      span #{strategy.title}
+                  td
+                    a.update-link(href='/admin/strategy/edit/#{strategy._id}' title='Update this strategy')
+                      span #{strategy.content}
+                  td.text-center
+                    | #{strategy.created_at.toLocaleDateString()}
+                  td.text-center
+                    | #{strategy.updated_at.toLocaleDateString()}
+                  td
+                    a(href='/admin/strategy/destroy/#{strategy._id}')
+                      img(title='Delete this strategy' src='/images/delete.png' width='16px' height='18px')
+                - }
+            - });

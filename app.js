@@ -13,7 +13,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,6 +27,10 @@ mongoose.connect(mongoUrl);
 // include news model
 require('./models/News');
 require('./models/Siis');
+
+// include Strategy model
+require('./models/Strategy');
+
 require('./models/ContentUpdates');
 require('./models/TrainingAndEvents');
 require('./models/Conferences');
@@ -39,6 +43,7 @@ var contentUpdates    = require('./routes/content-updates');
 var trainingAndEvents = require('./routes/training-and-events');
 var addNews           = require ('./routes/addNews');
 var siis              = require('./routes/siis');
+var strategy          = require('./routes/strategy');
 var addSiis           = require('./routes/addSiis');
 var conferences       = require('./routes/conferences');
 var addConferences    = require('./routes/addConferences');
@@ -54,6 +59,13 @@ app.use('/admin/news/add', addNews);
 app.use('/addSiis', addSiis);
 app.use('/api/conferences', conferences);
 app.use('/admin/addConferences', addConferences);
+
+app.get('/api/strategy', strategy.api);
+app.get('/admin/strategy', strategy.index);
+app.post('/admin/strategy/add', strategy.add);
+app.get('/admin/strategy/edit/:id', strategy.edit);
+app.get('/admin/strategy/destroy/:id', strategy.destroy);
+app.post('/admin/strategy/update/:id', strategy.update);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

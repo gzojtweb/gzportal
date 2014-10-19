@@ -2,8 +2,63 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/screen.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css')
+    
+    script(src='https://code.jquery.com/jquery-2.1.1.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js')
   body
+    .navbar.navbar-default.navbar-fixed-top(role='navigation')
+      .container
+        .navbar-header
+          a.navbar-brand(href='#') Web Services
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          ul.nav.navbar-nav
+            - if (page_id == 1) {
+            li.active
+              a(href='#') News
+            - } else {
+            li
+              a(href='#') News
+            - }
+            - if (page_id == 2) {
+            li.active
+              a(href='#') Strategy of the Week
+            - } else {
+            li
+              a(href='#') Strategy of the Week
+            - }
+            - if (page_id == 3) {
+            li.active
+              a(href='#') Events
+            - } else {
+            li
+              a(href='#') Events
+            - }
+            - if (page_id == 4) {
+            li.active
+              a(href='#') Polls
+            - } else {
+            li
+              a(href='#') Polls
+            - }
+            - if (page_id == 5) {
+            li.active
+              a(href='#') About
+            - } else {
+            li
+              a(href='#') About
+            - }
+          ul.nav.navbar-nav.navbar-right
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown')
+                | You are logged in as Admin
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href='#') Settings
+                li
+                  a(href='#') Logout
     block content
